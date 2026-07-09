@@ -1,7 +1,6 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { authService } from '../api/services';
-
-const AuthContext = createContext();
+import AuthContext from './AuthContextBase';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -15,7 +14,7 @@ export const AuthProvider = ({ children }) => {
         try {
           const res = await authService.getMe();
           setUser(res.data);
-        } catch (e) {
+        } catch {
           localStorage.clear();
         }
       }
@@ -36,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    try { await authService.logout(); } catch (e) {}
+    try { await authService.logout(); } catch {}
     localStorage.clear();
     setUser(null);
   };
@@ -47,5 +46,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

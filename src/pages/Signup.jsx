@@ -1,7 +1,7 @@
 // relief-hub/src/pages/Signup.jsx
 import React, { useState } from 'react';
 import { authService } from '../api/services';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 
 const Signup = ({ onSwitchToLogin }) => {
   const { login } = useAuth();
@@ -18,7 +18,7 @@ const Signup = ({ onSwitchToLogin }) => {
       const res = await authService.signup(form);
       alert(res.data.message);
       login(res.data); // 가입 성공 시 자동 로그인 처리
-    } catch (err) {
+    } catch {
       alert('회원가입에 실패했습니다. 정보를 확인해주세요.');
     }
   };

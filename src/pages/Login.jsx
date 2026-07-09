@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { authService } from '../api/services';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 
 const Login = ({ onSwitchToSignup }) => {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -12,7 +12,7 @@ const Login = ({ onSwitchToSignup }) => {
       const res = await authService.signin(form);
       login(res.data);
       alert('로그인되었습니다.');
-    } catch (err) {
+    } catch {
       alert('아이디 또는 비밀번호를 확인해주세요.');
     }
   };

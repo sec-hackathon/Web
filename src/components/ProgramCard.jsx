@@ -2,6 +2,8 @@
 import React from 'react';
 
 const ProgramCard = ({ program, onClick }) => {
+  const detailUrl = program.link || `https://www.google.com/search?q=${encodeURIComponent(program.title || '재난 지원 사업')}`;
+
   // 프로그램 타입별 강조 색상 지정
   const getTypeStyles = (type) => {
     switch(type) {
@@ -37,9 +39,15 @@ const ProgramCard = ({ program, onClick }) => {
           <span className="text-[10px] text-gray-400 uppercase font-bold tracking-tight">신청기한</span>
           <span className="text-xs text-gray-700 font-semibold">{program.deadline}</span>
         </div>
-        <button className="text-blue-600 font-bold text-sm flex items-center gap-0.5">
+        <a
+          href={detailUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(event) => event.stopPropagation()}
+          className="text-blue-600 font-bold text-sm flex items-center gap-0.5"
+        >
           자세히 <span className="text-lg leading-none">›</span>
-        </button>
+        </a>
       </div>
     </div>
   );

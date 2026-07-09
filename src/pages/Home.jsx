@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { dataService } from '../api/services';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 
 const Home = ({ onSearch }) => {
   const { user, logout } = useAuth();
@@ -20,10 +19,8 @@ const Home = ({ onSearch }) => {
     if (!location) return alert('지역을 입력해주세요.');
     setLoading(true);
     try {
-      // 명세서 8번: 통합 검색 호출
-      const res = await dataService.searchAll(location, selectedNeeds);
-      onSearch(location, res.data); // 결과 데이터를 MapResults로 전달
-    } catch (e) {
+      await onSearch(location.trim(), selectedNeeds);
+    } catch {
       alert('검색 중 오류가 발생했습니다.');
     } finally {
       setLoading(false);
